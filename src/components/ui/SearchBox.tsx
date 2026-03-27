@@ -67,7 +67,7 @@ const SearchBox: React.FC = () => {
   const totalSelectedCount = (beds > 1 ? 1 : 0) + (bathrooms > 1 ? 1 : 0) + (kitchen > 0 ? 1 : 0)
 
   return (
-    <div className="mx-auto   px-4">
+    <div className="mx-auto   px-4 relative o">
       {/* Main Search Bar */}
       <div className="group relative">
         <div className="relative flex items-center overflow-hidden rounded-full border border-gray-200/80 bg-white shadow-lg transition-all duration-300 hover:shadow-xl">

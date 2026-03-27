@@ -224,23 +224,7 @@ function Homepage() {
             <SearchBox />
           </div>
 
-          {/* Stats Bar */}
-          <div className="absolute bottom-8 left-0 right-0">
-            <div className="flex justify-center gap-8 text-white/80 text-sm">
-              <div className="flex items-center gap-2">
-                <Users size={16} />
-                <span>50K+ Clients</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Home size={16} />
-                <span>10K+ Properties</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Star size={16} />
-                <span>98% Satisfaction</span>
-              </div>
-            </div>
-          </div>
+        
         </div>
       </div>
 
@@ -287,7 +271,7 @@ function Homepage() {
 
       {/* Properties Grid */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProperties.map((property) => (
             <div key={property.id} className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
               <div className="relative h-48 overflow-hidden">
