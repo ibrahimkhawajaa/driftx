@@ -17,7 +17,7 @@ function Homepage() {
   const [activePropertyTab, setActivePropertyTab] = useState("all");
   const [activeVideo, setActiveVideo] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
+  
 
   // Real property data with tabs
   const allProperties = [
