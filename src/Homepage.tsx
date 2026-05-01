@@ -1,9 +1,10 @@
-import { useEffect, useState, startTransition } from "react"
-import SearchBox from "./components/ui/SearchBox"
-import PropertySlider from "./components/ui/PropertySlider"
-import PropertyShowcaseModal from "./components/PropertyShowcaseModal"
-import { fetchProperties } from "./lib/api"
-import type { Property } from "./types/property"
+import { useEffect, useState, startTransition } from "react";
+import SearchBox from "./components/ui/SearchBox";
+import PropertySlider from "./components/ui/PropertySlider";
+import PropertyShowcaseModal from "./components/PropertyShowcaseModal";
+import { fetchProperties } from "./lib/api";
+import type { Property } from "./types/property";
+import Vid from "./assests/vid.mp4";
 import {
   Home,
   Building2,
@@ -12,15 +13,16 @@ import {
   Play,
   MapPin,
   Star,
-} from "lucide-react"
+  Video,
+} from "lucide-react";
 
 function Homepage() {
-  const [activePropertyTab, setActivePropertyTab] = useState("all")
-  const [activeVideo, setActiveVideo] = useState(0)
-  const [allProperties, setAllProperties] = useState<Property[]>([])
-  const [loadError, setLoadError] = useState<string | null>(null)
-  const [selected, setSelected] = useState<Property | null>(null)
-  const [lifestyleClip, setLifestyleClip] = useState<number | null>(null)
+  const [activePropertyTab, setActivePropertyTab] = useState("all");
+  const [activeVideo, setActiveVideo] = useState(0);
+  const [allProperties, setAllProperties] = useState<Property[]>([]);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Property | null>(null);
+  const [lifestyleClip, setLifestyleClip] = useState<number | null>(null);
 
   // useEffect(() => {
   //   fetchProperties({ limit: 80 })
@@ -31,9 +33,9 @@ function Homepage() {
   const filteredProperties =
     activePropertyTab === "all"
       ? allProperties
-      : allProperties.filter((p) => p.category === activePropertyTab)
+      : allProperties.filter((p) => p.category === activePropertyTab);
 
-  const featuredProperties = allProperties.filter((p) => p.featured)
+  const featuredProperties = allProperties.filter((p) => p.featured);
 
   const realVideos = [
     {
@@ -76,7 +78,7 @@ function Homepage() {
       likes: "28K",
       platform: "tiktok",
     },
-  ]
+  ];
 
   const categories = [
     { id: "all", label: "All Properties", icon: Home },
@@ -85,25 +87,26 @@ function Homepage() {
     { id: "house", label: "Houses", icon: Building2 },
     { id: "studio", label: "Studios", icon: Home },
     { id: "penthouse", label: "Penthouses", icon: TrendingUp },
-  ]
+  ];
 
   const openById = (id: string | number) => {
-    const p = allProperties.find((x) => String(x.id) === String(id))
-    if (p) startTransition(() => setSelected(p))
-  }
+    const p = allProperties.find((x) => String(x.id) === String(id));
+    if (p) startTransition(() => setSelected(p));
+  };
 
   const openPropertyCard = (p: Property) => {
-    startTransition(() => setSelected(p))
-  }
+    startTransition(() => setSelected(p));
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="relative h-[50vh] w-full overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1600596542815-ffad4b1530a9?w=1920&q=80&auto=format&fit=crop"
-          alt=""
-          fetchPriority="high"
-          decoding="async"
+        <video
+          src={Vid}
+          autoPlay
+          loop
+          muted
+          playsInline
           className="absolute inset-0 z-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
@@ -210,9 +213,7 @@ function Homepage() {
                 <div className="absolute bottom-3 right-3 rounded-lg bg-black/75 px-2 py-1">
                   <span className="text-sm font-bold text-white">
                     ${property.price.toLocaleString()}
-                    {property.isForRent && (
-                      <span className="text-xs">/mo</span>
-                    )}
+                    {property.isForRent && <span className="text-xs">/mo</span>}
                   </span>
                 </div>
               </div>
@@ -231,10 +232,7 @@ function Homepage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
-                    <Star
-                      size={14}
-                      className="fill-[#0f084b] text-[#0f084b]"
-                    />
+                    <Star size={14} className="fill-[#0f084b] text-[#0f084b]" />
                     <span className="text-sm font-medium text-gray-700">
                       {property.rating ?? "—"}
                     </span>
@@ -251,7 +249,6 @@ function Homepage() {
             </button>
           ))}
         </div>
-
       </div>
 
       <div className="mt-12 bg-gray-100 py-16">
@@ -267,57 +264,57 @@ function Homepage() {
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {realVideos.map((video, index) => {
-              const playing = lifestyleClip === index
+              const playing = lifestyleClip === index;
               return (
-              <div
-                key={video.id}
-                className="group relative aspect-square cursor-pointer overflow-hidden rounded-xl bg-gray-900"
-                onClick={() =>
-                  setLifestyleClip((c) => (c === index ? null : index))
-                }
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ")
+                <div
+                  key={video.id}
+                  className="group relative aspect-square cursor-pointer overflow-hidden rounded-xl bg-gray-900"
+                  onClick={() =>
                     setLifestyleClip((c) => (c === index ? null : index))
-                }}
-                role="button"
-                tabIndex={0}
-              >
-                {playing && (
-                  <video
-                    key={`clip-${video.id}`}
-                    className="absolute inset-0 z-10 h-full w-full object-cover"
-                    src={video.url}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
+                  }
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ")
+                      setLifestyleClip((c) => (c === index ? null : index));
+                  }}
+                  role="button"
+                  tabIndex={0}
+                >
+                  {playing && (
+                    <video
+                      key={`clip-${video.id}`}
+                      className="absolute inset-0 z-10 h-full w-full object-cover"
+                      src={video.url}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                    />
+                  )}
+                  <img
+                    src={video.thumbnail}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    className={`h-full w-full object-cover transition-transform duration-200 group-hover:scale-105 ${playing ? "opacity-0" : ""}`}
                   />
-                )}
-                <img
-                  src={video.thumbnail}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  className={`h-full w-full object-cover transition-transform duration-200 group-hover:scale-105 ${playing ? "opacity-0" : ""}`}
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <div className="pointer-events-none absolute bottom-0 left-0 right-0 p-3">
-                  <p className="text-sm font-semibold text-white">
-                    {video.title}
-                  </p>
-                  <div className="mt-1 flex items-center gap-3 text-xs text-white/70">
-                    <span>{video.views} views</span>
-                    <span>{video.likes} likes</span>
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="pointer-events-none absolute bottom-0 left-0 right-0 p-3">
+                    <p className="text-sm font-semibold text-white">
+                      {video.title}
+                    </p>
+                    <div className="mt-1 flex items-center gap-3 text-xs text-white/70">
+                      <span>{video.views} views</span>
+                      <span>{video.likes} likes</span>
+                    </div>
+                  </div>
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/25">
+                      <Play size={24} className="ml-1 text-white" />
+                    </div>
                   </div>
                 </div>
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/25">
-                    <Play size={24} className="ml-1 text-white" />
-                  </div>
-                </div>
-              </div>
-            );
+              );
             })}
           </div>
         </div>
@@ -345,7 +342,7 @@ function Homepage() {
         }
       `}</style>
     </div>
-  )
+  );
 }
 
-export default Homepage
+export default Homepage;
