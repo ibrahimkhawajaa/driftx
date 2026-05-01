@@ -144,11 +144,11 @@ export default function AdminPage() {
         <div className="mx-auto max-w-md">
           <div className="mb-8 flex flex-col items-center gap-2">
             <img src="/logo-monarque.png" alt="Monarque Stays" className="h-16 w-auto object-contain" loading="lazy" />
-            <h1 className="font-serif text-2xl text-[#0f084b]">Admin sign in</h1>
+            <h1 className="font-serif text-2xl text-[#606c38]">Admin sign in</h1>
             <p className="text-center text-sm text-gray-600">Use the username and password from your server <code className="text-gray-800">.env</code> file.</p>
           </div>
-          <form onSubmit={handleLogin} className="space-y-4 rounded-xl border border-[#0f084b]/30 bg-blue-50 p-6">
-            <div className="flex items-center gap-2 text-[#0f084b]">
+          <form onSubmit={handleLogin} className="space-y-4 rounded-xl border border-[#606c38]/30 bg-blue-50 p-6">
+            <div className="flex items-center gap-2 text-[#606c38]">
               <Shield size={18} />
               <span className="text-sm font-medium">Credentials</span>
             </div>
@@ -158,7 +158,7 @@ export default function AdminPage() {
               value={loginUser}
               onChange={(e) => setLoginUser(e.target.value)}
               placeholder="Username"
-              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b] focus:ring-1 focus:ring-[#0f084b]"
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38] focus:ring-1 focus:ring-[#606c38]"
             />
             <input
               type="password"
@@ -166,12 +166,12 @@ export default function AdminPage() {
               value={loginPass}
               onChange={(e) => setLoginPass(e.target.value)}
               placeholder="Password"
-              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b] focus:ring-1 focus:ring-[#0f084b]"
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38] focus:ring-1 focus:ring-[#606c38]"
             />
             <button
               type="submit"
               disabled={loginLoading}
-              className="w-full rounded-lg bg-[#0f084b] py-3 text-sm font-semibold text-white hover:bg-opacity-90 disabled:opacity-60"
+              className="w-full rounded-lg bg-[#606c38] py-3 text-sm font-semibold text-white hover:bg-opacity-90 disabled:opacity-60"
             >
               {loginLoading ? "Signing in…" : "Sign in"}
             </button>
@@ -188,7 +188,7 @@ export default function AdminPage() {
           <img src="/logo-monarque.png" alt="Monarque Stays" className="h-16 w-auto object-contain sm:h-20" loading="lazy" />
           <div className="flex flex-col items-center gap-2 sm:items-end">
             <div>
-              <h1 className="font-serif text-2xl text-[#0f084b]">Admin</h1>
+              <h1 className="font-serif text-2xl text-[#606c38]">Admin</h1>
               <p className="text-sm text-gray-600">Upload and manage listings</p>
             </div>
             <button
@@ -214,16 +214,16 @@ export default function AdminPage() {
         {err && <p className="mb-4 text-sm text-red-600">{err}</p>}
 
         <form onSubmit={handleSubmit} className="mb-12 space-y-4 rounded-xl border border-gray-300 bg-gray-50 p-6">
-          <h2 className="font-medium text-[#0f084b]">New property</h2>
+          <h2 className="font-medium text-[#606c38]">New property</h2>
           <div className="grid gap-3 sm:grid-cols-2">
-            <input required placeholder="Title" value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b]" />
-            <input required placeholder="Price (USD)" type="number" min={0} value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b]" />
-            <input required placeholder="Location" value={form.location} onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))} className="sm:col-span-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b]" />
-            <input required placeholder="Bedrooms" type="number" min={0} value={form.bedrooms} onChange={(e) => setForm((f) => ({ ...f, bedrooms: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b]" />
-            <input required placeholder="Bathrooms" type="number" min={0} value={form.bathrooms} onChange={(e) => setForm((f) => ({ ...f, bathrooms: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b]" />
-            <input required placeholder="Area (sqft)" type="number" min={0} value={form.area} onChange={(e) => setForm((f) => ({ ...f, area: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b]" />
-            <input placeholder="Rating (0–5)" type="number" step="0.1" min={0} max={5} value={form.rating} onChange={(e) => setForm((f) => ({ ...f, rating: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b]" />
-            <select value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b]">
+            <input required placeholder="Title" value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38]" />
+            <input required placeholder="Price (USD)" type="number" min={0} value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38]" />
+            <input required placeholder="Location" value={form.location} onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))} className="sm:col-span-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38]" />
+            <input required placeholder="Bedrooms" type="number" min={0} value={form.bedrooms} onChange={(e) => setForm((f) => ({ ...f, bedrooms: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38]" />
+            <input required placeholder="Bathrooms" type="number" min={0} value={form.bathrooms} onChange={(e) => setForm((f) => ({ ...f, bathrooms: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38]" />
+            <input required placeholder="Area (sqft)" type="number" min={0} value={form.area} onChange={(e) => setForm((f) => ({ ...f, area: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38]" />
+            <input placeholder="Rating (0–5)" type="number" step="0.1" min={0} max={5} value={form.rating} onChange={(e) => setForm((f) => ({ ...f, rating: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38]" />
+            <select value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38]">
               <option value="apartment">Apartment</option>
               <option value="villa">Villa</option>
               <option value="house">House</option>
@@ -241,9 +241,9 @@ export default function AdminPage() {
               Featured
             </label>
           </div>
-          <textarea placeholder="Description" value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={3} className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b]" />
-          <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-dashed border-[#0f084b]/40 bg-blue-50 px-4 py-6 hover:bg-blue-100">
-            <ImagePlus className="text-[#0f084b]" size={24} />
+          <textarea placeholder="Description" value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={3} className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38]" />
+          <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-dashed border-[#606c38]/40 bg-blue-50 px-4 py-6 hover:bg-blue-100">
+            <ImagePlus className="text-[#606c38]" size={24} />
             <div>
               <p className="text-sm font-medium">Cover image</p>
               <p className="text-xs text-gray-600">{file ? file.name : "PNG, JPG, WebP up to 8MB"}</p>
@@ -251,14 +251,14 @@ export default function AdminPage() {
             <input type="file" accept="image/*" className="hidden" onChange={(e) => setFile(e.target.files?.[0] || null)} />
           </label>
           <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-dashed border-gray-300 bg-gray-100 px-4 py-6 hover:bg-gray-200">
-            <span className="text-[#0f084b] text-xl font-bold">+</span>
+            <span className="text-[#606c38] text-xl font-bold">+</span>
             <div>
               <p className="text-sm font-medium">Additional property images</p>
               <p className="text-xs text-gray-600">{additionalFiles.length > 0 ? `${additionalFiles.length} files selected` : "Optional, choose up to 8 images"}</p>
             </div>
             <input type="file" accept="image/*" multiple className="hidden" onChange={(e) => setAdditionalFiles(Array.from(e.target.files || []).slice(0, 8))} />
           </label>
-          <button type="submit" className="w-full rounded-lg bg-[#0f084b] py-3 text-sm font-semibold text-white hover:bg-opacity-90 sm:w-auto sm:px-8">
+          <button type="submit" className="w-full rounded-lg bg-[#606c38] py-3 text-sm font-semibold text-white hover:bg-opacity-90 sm:w-auto sm:px-8">
             Publish property
           </button>
         </form>

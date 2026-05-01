@@ -17,7 +17,7 @@ interface SearchBoxProps {
   variant?: Variant
 }
 
-const accent = "#0f084b"
+const accent = "#606c38"
 
 const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
   const navigate = useNavigate()
@@ -169,7 +169,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
             <button
               type="button"
               onClick={goSearch}
-              className="shrink-0 rounded-full bg-[#0f084b] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1a1268]"
+              className="shrink-0 rounded-full bg-[#606c38] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1a1268]"
             >
               Search
             </button>
@@ -206,7 +206,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#0f084b]"
+                  className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#606c38]"
                 >
                   <option value="all">All</option>
                   <option value="apartment">Apartment</option>
@@ -237,7 +237,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
                       onClick={() => setRentFilter(v)}
                       className={`flex-1 rounded-lg border py-2 text-xs font-medium transition ${
                         rentFilter === v
-                          ? "border-[#0f084b] bg-[#0f084b] text-white"
+                          ? "border-[#606c38] bg-[#606c38] text-white"
                           : "border-gray-200 text-gray-600 hover:border-gray-300"
                       }`}
                     >
@@ -249,8 +249,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0f084b]/10">
-                    <Bed size={18} className="text-[#0f084b]" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#606c38]/10">
+                    <Bed size={18} className="text-[#606c38]" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-800">Bedrooms</p>
@@ -260,19 +260,19 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#0f084b] hover:bg-[#0f084b]/5 active:scale-95"
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#606c38] hover:bg-[#606c38]/5 active:scale-95"
                     onClick={() => decrement(setBeds, beds)}
                   >
                     <Minus size={14} className="text-gray-500" />
                   </button>
                   <span
-                    className={`w-8 text-center text-xl font-bold text-[#0f084b] transition-all ${animateBeds ? "scale-125" : ""}`}
+                    className={`w-8 text-center text-xl font-bold text-[#606c38] transition-all ${animateBeds ? "scale-125" : ""}`}
                   >
                     {beds}
                   </span>
                   <button
                     type="button"
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#0f084b] hover:bg-[#0f084b]/5 active:scale-95"
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#606c38] hover:bg-[#606c38]/5 active:scale-95"
                     onClick={() => {
                       increment(setBeds, beds)
                       setAnimateBeds(true)
@@ -285,8 +285,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0f084b]/10">
-                    <Bath size={18} className="text-[#0f084b]" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#606c38]/10">
+                    <Bath size={18} className="text-[#606c38]" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-800">Bathrooms</p>
@@ -296,19 +296,19 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#0f084b] hover:bg-[#0f084b]/5 active:scale-95"
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#606c38] hover:bg-[#606c38]/5 active:scale-95"
                     onClick={() => decrement(setBathrooms, bathrooms)}
                   >
                     <Minus size={14} className="text-gray-500" />
                   </button>
                   <span
-                    className={`w-8 text-center text-xl font-bold text-[#0f084b] transition-all ${animateBath ? "scale-125" : ""}`}
+                    className={`w-8 text-center text-xl font-bold text-[#606c38] transition-all ${animateBath ? "scale-125" : ""}`}
                   >
                     {bathrooms}
                   </span>
                   <button
                     type="button"
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#0f084b] hover:bg-[#0f084b]/5 active:scale-95"
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#606c38] hover:bg-[#606c38]/5 active:scale-95"
                     onClick={() => {
                       increment(setBathrooms, bathrooms)
                       setAnimateBath(true)
@@ -321,8 +321,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0f084b]/10">
-                    <Coffee size={18} className="text-[#0f084b]" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#606c38]/10">
+                    <Coffee size={18} className="text-[#606c38]" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-800">Kitchen</p>
@@ -332,19 +332,19 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#0f084b] hover:bg-[#0f084b]/5 active:scale-95"
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#606c38] hover:bg-[#606c38]/5 active:scale-95"
                     onClick={() => decrement(setKitchen, kitchen)}
                   >
                     <Minus size={14} className="text-gray-500" />
                   </button>
                   <span
-                    className={`w-8 text-center text-xl font-bold text-[#0f084b] transition-all ${animateKitchen ? "scale-125" : ""}`}
+                    className={`w-8 text-center text-xl font-bold text-[#606c38] transition-all ${animateKitchen ? "scale-125" : ""}`}
                   >
                     {kitchen}
                   </span>
                   <button
                     type="button"
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#0f084b] hover:bg-[#0f084b]/5 active:scale-95"
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 transition-all hover:border-[#606c38] hover:bg-[#606c38]/5 active:scale-95"
                     onClick={() => {
                       increment(setKitchen, kitchen, 1)
                       setAnimateKitchen(true)
@@ -360,14 +360,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
               <button
                 type="button"
                 onClick={handleClear}
-                className="flex-1 rounded-lg border border-gray-200 py-2 text-sm font-medium text-gray-600 transition-all hover:border-[#0f084b] hover:text-[#0f084b]"
+                className="flex-1 rounded-lg border border-gray-200 py-2 text-sm font-medium text-gray-600 transition-all hover:border-[#606c38] hover:text-[#606c38]"
               >
                 Reset
               </button>
               <button
                 type="button"
                 onClick={handleApply}
-                className="flex-1 rounded-lg bg-[#0f084b] py-2 text-sm font-medium text-white transition-all hover:bg-[#1a1268] hover:shadow-md"
+                className="flex-1 rounded-lg bg-[#606c38] py-2 text-sm font-medium text-white transition-all hover:bg-[#1a1268] hover:shadow-md"
               >
                 Apply
               </button>

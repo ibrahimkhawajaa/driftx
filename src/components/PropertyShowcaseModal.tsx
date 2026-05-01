@@ -92,7 +92,7 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
         onClick={onClose}
       />
       <div
-        className="relative z-10 flex max-h-[95vh] w-full max-w-3xl flex-col overflow-y-auto rounded-t-2xl border border-[#0f084b]/30 bg-white shadow-2xl sm:rounded-2xl"
+        className="relative z-10 flex max-h-[95vh] w-full max-w-3xl flex-col overflow-y-auto rounded-t-2xl border border-[#606c38]/30 bg-white shadow-2xl sm:rounded-2xl"
         role="dialog"
         aria-modal="true"
         aria-labelledby="showcase-title"
@@ -119,7 +119,7 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
             <X size={20} />
           </button>
           <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-            <p className="text-xs font-medium uppercase tracking-widest text-[#0f084b]">
+            <p className="text-xs font-medium uppercase tracking-widest text-[#606c38]">
               {property.isForRent ? "For rent" : "For sale"}
               {property.category ? ` · ${property.category}` : ""}
             </p>
@@ -153,12 +153,12 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
             </div>
             <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-gray-700">
               <span className="flex items-center gap-1">
-                <MapPin size={16} className="text-[#0f084b]" />
+                <MapPin size={16} className="text-[#606c38]" />
                 {property.location}
               </span>
               {property.rating != null && (
                 <span className="flex items-center gap-1">
-                  <Star size={16} className="fill-[#0f084b] text-[#0f084b]" />
+                  <Star size={16} className="fill-[#606c38] text-[#606c38]" />
                   {property.rating}
                 </span>
               )}
@@ -176,7 +176,7 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
                 <button
                   key={src}
                   onClick={() => setFullscreenImage(src)}
-                  className="group relative aspect-square overflow-hidden rounded-lg ring-1 ring-gray-300 transition hover:ring-[#0f084b]"
+                  className="group relative aspect-square overflow-hidden rounded-lg ring-1 ring-gray-300 transition hover:ring-[#606c38]"
                   type="button"
                   aria-label="View fullscreen"
                 >
@@ -194,7 +194,7 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
         )}
 
         <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-          <p className="text-2xl font-semibold text-[#0f084b] sm:text-3xl">
+          <p className="text-2xl font-semibold text-[#606c38] sm:text-3xl">
             {formatPrice(property.price)}
             {property.isForRent && (
               <span className="text-base font-normal text-gray-600">/mo</span>
@@ -203,15 +203,15 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
 
           <div className="mt-4 flex flex-wrap gap-4 text-sm text-gray-700">
             <span className="flex items-center gap-2">
-              <Bed size={18} className="text-[#0f084b]" />
+              <Bed size={18} className="text-[#606c38]" />
               {property.bedrooms} bedrooms
             </span>
             <span className="flex items-center gap-2">
-              <Bath size={18} className="text-[#0f084b]" />
+              <Bath size={18} className="text-[#606c38]" />
               {property.bathrooms} bathrooms
             </span>
             <span className="flex items-center gap-2">
-              <Square size={18} className="text-[#0f084b]" />
+              <Square size={18} className="text-[#606c38]" />
               {property.area} sqft
             </span>
           </div>
@@ -227,17 +227,17 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
             </p>
           )}
 
-          <div className="mt-10 rounded-3xl border border-[#0f084b]/20 bg-blue-50 p-5">
+          <div className="mt-10 rounded-3xl border border-[#606c38]/20 bg-blue-50 p-5">
             <div className="mb-4 flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.2em] text-[#0f084b]">
+                <p className="text-sm uppercase tracking-[0.2em] text-[#606c38]">
                   Contact us
                 </p>
                 <h3 className="mt-2 text-xl font-semibold text-gray-900">
                   Request info for {property.title}
                 </h3>
               </div>
-              <span className="rounded-full bg-blue-100 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[#0f084b]">
+              <span className="rounded-full bg-blue-100 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[#606c38]">
                 Property inquiry
               </span>
             </div>
@@ -260,7 +260,7 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#0f084b]"
+                    className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#606c38]"
                     placeholder="Your name"
                   />
                 </label>
@@ -271,7 +271,7 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#0f084b]"
+                    className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#606c38]"
                     placeholder="name@example.com"
                   />
                 </label>
@@ -282,7 +282,7 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#0f084b]"
+                    className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#606c38]"
                     placeholder="+1 555 123 4567"
                   />
                 </label>
@@ -301,14 +301,14 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
-                  className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#0f084b]"
+                  className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#606c38]"
                   placeholder="Tell us what you need help with"
                 />
               </label>
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="rounded-2xl bg-[#0f084b] px-5 py-3 text-sm font-semibold text-white transition hover:bg-opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-2xl bg-[#606c38] px-5 py-3 text-sm font-semibold text-white transition hover:bg-opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {status === "sending" ? "Sending…" : "Send inquiry"}
               </button>

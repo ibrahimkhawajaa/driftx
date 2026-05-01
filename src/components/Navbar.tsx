@@ -33,7 +33,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className="bg-[#0f084b] text-white">
+      <nav className="bg-[#606c38] text-white">
         <div className="flex w-full items-center justify-between gap-4 px-4 py-4 sm:px-7 sm:py-5">
           <Link
             to="/"
@@ -50,7 +50,7 @@ function Navbar() {
           <div className="flex items-center gap-4 sm:gap-6">
             {/* <Link
               to="/search"
-              className="hidden text-sm text-[#0f084b] transition hover:text-[#1e1b7f] sm:inline"
+              className="hidden text-sm text-[#606c38] transition hover:text-[#1e1b7f] sm:inline"
             >
               Search
             </Link> */}

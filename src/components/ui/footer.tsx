@@ -8,9 +8,9 @@ const Footer: React.FC = () => {
   const navigation = [{ name: "Search", href: "/search" }]
 
   return (
-    <footer className="relative bg-[#0f084b] text-white">
+    <footer className="relative bg-[#606c38] text-white rounded-t-xl">
       {/* Abstract background shapes */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden ">
         <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-purple-600/10 to-transparent blur-3xl"></div>
         <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-gradient-to-tr from-blue-600/10 to-transparent blur-3xl"></div>
       </div>

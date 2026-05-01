@@ -93,7 +93,7 @@ export default function SearchPage() {
       <div className="mx-auto max-w-7xl px-4 py-12">
         {loading && (
           <div className="flex flex-col items-center justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-[#0f084b]"></div>
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-[#606c38]"></div>
             <p className="mt-4 text-gray-500">Loading listings…</p>
           </div>
         )}

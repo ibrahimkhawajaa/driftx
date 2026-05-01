@@ -121,7 +121,7 @@ const Card = memo(({
             e.stopPropagation();
             onContact?.(id);
           }}
-          className="w-full bg-[#0f084b]  text-white text-xs font-medium py-2 rounded-lg hover:shadow-md transition-all hover:scale-[1.02]"
+          className="w-full bg-[#606c38]  text-white text-xs font-medium py-2 rounded-lg hover:shadow-md transition-all hover:scale-[1.02]"
         >
           Contact Agent
         </button>

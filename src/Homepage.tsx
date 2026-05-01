@@ -176,7 +176,7 @@ function Homepage() {
                 onClick={() => setActivePropertyTab(category.id)}
                 className={`flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150 ${
                   activePropertyTab === category.id
-                    ? "bg-[#0f084b] text-white shadow-md"
+                    ? "bg-[#606c38] text-white shadow-md"
                     : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                 }`}
               >
@@ -206,7 +206,7 @@ function Homepage() {
                   className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
                 />
                 {property.featured && (
-                  <span className="absolute left-3 top-3 rounded-full bg-[#0f084b] px-2 py-1 text-xs font-bold text-white">
+                  <span className="absolute left-3 top-3 rounded-full bg-[#606c38] px-2 py-1 text-xs font-bold text-white">
                     Featured
                   </span>
                 )}
@@ -232,7 +232,7 @@ function Homepage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
-                    <Star size={14} className="fill-[#0f084b] text-[#0f084b]" />
+                    <Star size={14} className="fill-[#606c38] text-[#606c38]" />
                     <span className="text-sm font-medium text-gray-700">
                       {property.rating ?? "—"}
                     </span>
