@@ -5,11 +5,7 @@ import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react"
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear()
 
-  const navigation = [
-    { name: "Discover", href: "/properties" },
-    { name: "Stories", href: "/stories" },
-    { name: "About", href: "/about" },
-  ]
+  const navigation = [{ name: "Search", href: "/search" }]
 
   return (
     <footer className="relative bg-[#0f084b] text-white">
@@ -24,13 +20,17 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
           {/* Left Column - Brand + Info (spans 2 columns on large screens) */}
           <div className="space-y-8 lg:col-span-2">
-            <div className="flex items-center gap-2">
-              <span className="text-3xl font-bold tracking-tight">Driftx</span>
+            <div className="flex items-center gap-3">
+              <img
+                src="/logo-monarque.png"
+                alt="Monarque Stays"
+                className="h-14 w-auto object-contain sm:h-16"
+              />
             </div>
 
             <p className="max-w-md text-base leading-relaxed text-white/60">
-              Redefining how you find your next space. Simple, transparent, and
-              beautifully curated.
+              Monarque Stays — refined rentals and homes. Simple, transparent,
+              and beautifully curated.
             </p>
 
             <div className="flex flex-wrap gap-8 pt-4">
@@ -62,14 +62,14 @@ const Footer: React.FC = () => {
             </h3>
             <div className="space-y-4">
               <a
-                href="mailto:hello@driftx.com"
+                href="mailto:hello@monarquestays.com"
                 className="group flex items-center gap-3"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors group-hover:bg-white/20">
                   <Mail size={16} />
                 </div>
                 <span className="text-sm transition-colors group-hover:text-white">
-                  hello@driftx.com
+                  hello@monarquestays.com
                 </span>
               </a>
               <a
@@ -133,7 +133,7 @@ const Footer: React.FC = () => {
 
         {/* Bottom */}
         <div className="mt-8 pt-6 text-center text-xs text-white/30">
-          © {currentYear} Driftx. All rights reserved.
+          © {currentYear} Monarque Stays. All rights reserved.
         </div>
       </div>
     </footer>

@@ -2,29 +2,22 @@
 import React, { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Card from './Card';
-
-interface Property {
-  id: string | number;
-  title: string;
-  price: number;
-  location: string;
-  imageUrl: string;
-  bedrooms: number;
-  bathrooms: number;
-  area: number;
-  isForRent?: boolean;
-}
+import type { Property } from '../../types/property';
 
 interface PropertySliderProps {
   properties: Property[];
   title?: string;
   subtitle?: string;
+  onPropertyClick?: (id: string | number) => void;
+  onContact?: (id: string | number) => void;
 }
 
 const PropertySlider: React.FC<PropertySliderProps> = ({
   properties,
   title = "Latest Properties",
-  subtitle = "Handpicked selections just for you"
+  subtitle = "Handpicked selections just for you",
+  onPropertyClick,
+  onContact,
 }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
 
@@ -36,8 +29,11 @@ const PropertySlider: React.FC<PropertySliderProps> = ({
   };
 
   const handleContact = (id: string | number) => {
+    if (onContact) {
+      onContact(id);
+      return;
+    }
     console.log(`Contact about property ${id}`);
-    // Implement contact functionality
   };
 
   const handleFavorite = (id: string | number) => {
@@ -93,6 +89,7 @@ const PropertySlider: React.FC<PropertySliderProps> = ({
               isForRent={property.isForRent}
               onContact={handleContact}
               onFavorite={handleFavorite}
+              onOpen={onPropertyClick}
             />
           </div>
         ))}

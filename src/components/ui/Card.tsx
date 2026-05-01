@@ -1,5 +1,5 @@
 // Card.tsx - Compact Version
-import React from 'react';
+import { memo } from 'react';
 import { Bed, Bath, Square, MapPin, Heart} from 'lucide-react';
 
 interface CardProps {
@@ -14,9 +14,10 @@ interface CardProps {
   isForRent?: boolean;
   onContact?: (id: string | number) => void;
   onFavorite?: (id: string | number) => void;
+  onOpen?: (id: string | number) => void;
 }
 
-const Card: React.FC<CardProps> = ({
+const Card = memo(({
   id,
   title,
   price,
@@ -28,7 +29,8 @@ const Card: React.FC<CardProps> = ({
   isForRent = false,
   onContact,
   onFavorite,
-}) => {
+  onOpen,
+}: CardProps) => {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -39,13 +41,26 @@ const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <div className="group relative w-80 flex-shrink-0 bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+    <div
+      role={onOpen ? "button" : undefined}
+      tabIndex={onOpen ? 0 : undefined}
+      onClick={() => onOpen?.(id)}
+      onKeyDown={(e) => {
+        if (onOpen && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          onOpen(id);
+        }
+      }}
+      className={`group relative w-80 flex-shrink-0 bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-200 ${onOpen ? "cursor-pointer" : ""}`}
+    >
       {/* Image Container */}
       <div className="relative h-48 overflow-hidden bg-gray-100">
         <img
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
           onError={(e) => {
             e.currentTarget.src = 'https://via.placeholder.com/400x300?text=Property';
           }}
@@ -61,7 +76,11 @@ const Card: React.FC<CardProps> = ({
 
         {/* Favorite Button */}
         <button
-          onClick={() => onFavorite?.(id)}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onFavorite?.(id);
+          }}
           className="absolute top-3 right-3 bg-white/90 p-1.5 rounded-full shadow-md hover:bg-white transition-all hover:scale-110"
         >
           <Heart size={14} className="text-gray-600 hover:text-red-500" />
@@ -97,7 +116,11 @@ const Card: React.FC<CardProps> = ({
 
         {/* Contact Button */}
         <button
-          onClick={() => onContact?.(id)}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onContact?.(id);
+          }}
           className="w-full bg-[#0f084b]  text-white text-xs font-medium py-2 rounded-lg hover:shadow-md transition-all hover:scale-[1.02]"
         >
           Contact Agent
@@ -105,6 +128,7 @@ const Card: React.FC<CardProps> = ({
       </div>
     </div>
   );
-};
+});
 
+Card.displayName = 'PropertyCard';
 export default Card;

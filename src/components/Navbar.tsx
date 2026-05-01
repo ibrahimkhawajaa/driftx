@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, memo } from "react"
 import { User } from "lucide-react"
+import { Link } from "react-router-dom"
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden"
@@ -16,7 +16,6 @@ function Navbar() {
     }
   }, [isMenuOpen])
 
-  // Close menu on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMenuOpen) {
@@ -28,78 +27,94 @@ function Navbar() {
   }, [isMenuOpen])
 
   const menuItems = [
-    { label: "Home", href: "/" },
-    { label: "Discover", href: "/discover" },
-    { label: "Favorites", href: "/favorites" },
-    { label: "Settings", href: "/settings" },
+    { label: "Home", to: "/" },
+    { label: "Search", to: "/search" },
   ]
 
   return (
     <>
       <nav className="bg-[#0f084b] text-white">
-        <div className="flex w-full items-center justify-end gap-6 px-7 py-7">
-          <User className="h-6 w-6 cursor-pointer transition-opacity hover:opacity-70" />
-
-          {/* Hamburger Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="focus:outline-none"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        <div className="flex w-full items-center justify-between gap-4 px-4 py-4 sm:px-7 sm:py-5">
+          <Link
+            to="/"
+            className="flex shrink-0 items-center gap-3"
+            onClick={() => setIsMenuOpen(false)}
           >
-            <div className="relative flex h-8 w-8 items-center justify-center bottom-1">
-              {/* Top line */}
+            <img
+              src="/logo-monarque.png"
+              alt="Monarque Stays"
+              className="h-30 w-auto object-fit sm:h-20 object-fit"
+            />
+          </Link>
 
-              {/* Middle line - fades out when menu is open */}
-              <span
-                className={`absolute h-[1px] w-8 rounded-full bg-white transition-all duration-200 ${
-                  isMenuOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
-                }`}
-              ></span>
+          <div className="flex items-center gap-4 sm:gap-6">
+            {/* <Link
+              to="/search"
+              className="hidden text-sm text-[#0f084b] transition hover:text-[#1e1b7f] sm:inline"
+            >
+              Search
+            </Link> */}
+            {/* <User className="h-6 w-6 cursor-pointer transition-opacity hover:opacity-70" /> */}
 
-              {/* Bottom line */}
-              <span
-                className={`absolute h-[1px] w-8 rounded-full bg-white transition-all duration-300 ease-out ${
-                  isMenuOpen ? "translate-y-0 -rotate-45" : "translate-y-2"
-                }`}
-              ></span>
-            </div>
-          </button>
+            <button
+              type="button"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="focus:outline-none"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            >
+              <div className="relative bottom-1 flex h-8 w-8 items-center justify-center">
+                <span
+                  className={`absolute h-[1px] w-12 rounded-full bg-white transition-all duration-200 ${
+                    isMenuOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
+                  }`}
+                ></span>
+                <span
+                  className={`absolute h-[1px] w-12 rounded-full bg-white transition-all duration-300 ease-out ${
+                    isMenuOpen ? "translate-y-0 -rotate-45" : "translate-y-2"
+                  }`}
+                ></span>
+              </div>
+            </button>
+          </div>
         </div>
       </nav>
 
-      {/* Full Page Menu - Clean Black Design */}
       <div
-        className={`fixed inset-x-0 top-0 z-50 bg-white transition-all duration-500 ease-in-out ${
+        className={`fixed inset-x-0 top-0 z-50 bg-black transition-all duration-500 ease-in-out ${
           isMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
         style={{ height: "100vh" }}
       >
-        {/* Close button area - click outside to close */}
         <div
           className="absolute inset-0"
           onClick={() => setIsMenuOpen(false)}
+          aria-hidden
         />
 
-        {/* Menu Content */}
         <div className="relative flex h-full flex-col items-center justify-center px-8">
-          {/* Close button - X in top right */}
           <button
+            type="button"
             onClick={() => setIsMenuOpen(false)}
-            className="absolute top-7 right-7 flex h-8 w-8 items-center justify-center focus:outline-none"
+            className="absolute right-12 top-12 flex h-8 w-8 items-center justify-center focus:outline-none"
             aria-label="Close menu"
           >
-            <span className="absolute h-[1px] w-8 rotate-45 bg-white"></span>
-            <span className="absolute h-[1px] w-8 -rotate-45 bg-white"></span>
+            <span className="absolute h-[1px] w-12 rotate-45 bg-white"></span>
+            <span className="absolute h-[1px] w-12 -rotate-45 bg-white"></span>
           </button>
 
-          {/* Navigation Links */}
-          <div className="space-y-8 text-center">
+          <img
+            src="/logo-monarque.png"
+            alt=""
+            className="mb-10 h-30 w-auto object-fit opacity-90"
+          />
+
+          <div className="space-y-8 text-center  ">
             {menuItems.map((item, index) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.to}
                 onClick={() => setIsMenuOpen(false)}
-                className="block text-4xl font-light text-black transition-opacity duration-300 hover:opacity-50 sm:text-5xl md:text-6xl"
+                className="block  text-3xl font-light text-white transition-opacity duration-300 hover:opacity-70 sm:text-4xl md:text-5xl"
                 style={{
                   animation: isMenuOpen
                     ? `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`
@@ -109,13 +124,12 @@ function Navbar() {
                 }}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 
-          {/* Footer */}
           <p className="absolute bottom-8 text-sm text-white/30">
-            © 2024 DreamSpace
+            © {new Date().getFullYear()} Monarque Stays
           </p>
         </div>
       </div>
@@ -131,8 +145,6 @@ function Navbar() {
             transform: translateY(0);
           }
         }
-        
-        /* Prevent body scroll */
         body {
           overflow: ${isMenuOpen ? "hidden" : "auto"};
         }
@@ -141,4 +153,4 @@ function Navbar() {
   )
 }
 
-export default Navbar
+export default memo(Navbar)

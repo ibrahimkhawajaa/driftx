@@ -1,8 +1,9 @@
-// Homepage.tsx - Complete with Tabs & Real Videos
-import { useState } from "react";
-import SearchBox from "./components/ui/SearchBox";
-import PropertySlider from "./components/ui/PropertySlider";
-import Vid from "./assests/vid.mp4";
+import { useEffect, useState, startTransition } from "react"
+import SearchBox from "./components/ui/SearchBox"
+import PropertySlider from "./components/ui/PropertySlider"
+import PropertyShowcaseModal from "./components/PropertyShowcaseModal"
+import { fetchProperties } from "./lib/api"
+import type { Property } from "./types/property"
 import {
   Home,
   Building2,
@@ -11,146 +12,29 @@ import {
   Play,
   MapPin,
   Star,
-} from "lucide-react";
+} from "lucide-react"
 
 function Homepage() {
-  const [activePropertyTab, setActivePropertyTab] = useState("all");
-  const [activeVideo, setActiveVideo] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
-  
+  const [activePropertyTab, setActivePropertyTab] = useState("all")
+  const [activeVideo, setActiveVideo] = useState(0)
+  const [allProperties, setAllProperties] = useState<Property[]>([])
+  const [loadError, setLoadError] = useState<string | null>(null)
+  const [selected, setSelected] = useState<Property | null>(null)
+  const [lifestyleClip, setLifestyleClip] = useState<number | null>(null)
 
-  // Real property data with tabs
-  const allProperties = [
-    {
-      id: 1,
-      title: "Modern Downtown Loft",
-      price: 450000,
-      location: "Downtown, New York",
-      imageUrl:
-        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400",
-      bedrooms: 2,
-      bathrooms: 2,
-      area: 1200,
-      isForRent: false,
-      category: "apartment",
-      rating: 4.8,
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Luxury Beachfront Villa",
-      price: 8500,
-      location: "Malibu, California",
-      imageUrl:
-        "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400",
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 2800,
-      isForRent: true,
-      category: "villa",
-      rating: 4.9,
-      featured: true,
-    },
-    {
-      id: 3,
-      title: "Cozy Suburban Home",
-      price: 320000,
-      location: "Austin, Texas",
-      imageUrl:
-        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400",
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 1800,
-      isForRent: false,
-      category: "house",
-      rating: 4.7,
-      featured: false,
-    },
-    {
-      id: 4,
-      title: "Penthouse with City View",
-      price: 12000,
-      location: "Manhattan, NY",
-      imageUrl:
-        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400",
-      bedrooms: 3,
-      bathrooms: 3,
-      area: 2200,
-      isForRent: true,
-      category: "penthouse",
-      rating: 4.9,
-      featured: true,
-    },
-    {
-      id: 5,
-      title: "Minimalist Studio",
-      price: 1800,
-      location: "San Francisco, CA",
-      imageUrl:
-        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400",
-      bedrooms: 1,
-      bathrooms: 1,
-      area: 550,
-      isForRent: true,
-      category: "studio",
-      rating: 4.6,
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "Mountain View Cabin",
-      price: 380000,
-      location: "Denver, Colorado",
-      imageUrl:
-        "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400",
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 1600,
-      isForRent: false,
-      category: "cabin",
-      rating: 4.8,
-      featured: true,
-    },
-    {
-      id: 7,
-      title: "Urban Industrial Loft",
-      price: 525000,
-      location: "Brooklyn, NY",
-      imageUrl:
-        "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=400",
-      bedrooms: 2,
-      bathrooms: 2,
-      area: 1400,
-      isForRent: false,
-      category: "apartment",
-      rating: 4.7,
-      featured: false,
-    },
-    {
-      id: 8,
-      title: "Mediterranean Villa",
-      price: 12000,
-      location: "Santa Barbara, CA",
-      imageUrl:
-        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400",
-      bedrooms: 5,
-      bathrooms: 4,
-      area: 3500,
-      isForRent: true,
-      category: "villa",
-      rating: 5.0,
-      featured: true,
-    },
-  ];
+  // useEffect(() => {
+  //   fetchProperties({ limit: 80 })
+  //     .then(setAllProperties)
+  //     .catch(() => setLoadError("Could not load listings. Start the API and MongoDB."))
+  // }, [])
 
   const filteredProperties =
     activePropertyTab === "all"
       ? allProperties
-      : allProperties.filter((p) => p.category === activePropertyTab);
+      : allProperties.filter((p) => p.category === activePropertyTab)
 
-  const featuredProperties = allProperties.filter((p) => p.featured);
+  const featuredProperties = allProperties.filter((p) => p.featured)
 
-  // Real Instagram-style videos
   const realVideos = [
     {
       id: 1,
@@ -192,7 +76,7 @@ function Homepage() {
       likes: "28K",
       platform: "tiktok",
     },
-  ];
+  ]
 
   const categories = [
     { id: "all", label: "All Properties", icon: Home },
@@ -201,70 +85,96 @@ function Homepage() {
     { id: "house", label: "Houses", icon: Building2 },
     { id: "studio", label: "Studios", icon: Home },
     { id: "penthouse", label: "Penthouses", icon: TrendingUp },
-  ];
+  ]
+
+  const openById = (id: string | number) => {
+    const p = allProperties.find((x) => String(x.id) === String(id))
+    if (p) startTransition(() => setSelected(p))
+  }
+
+  const openPropertyCard = (p: Property) => {
+    startTransition(() => setSelected(p))
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="relative w-full h-[50vh] overflow-hidden">
-        <video
-          src={Vid}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover z-0"
+      <div className="relative h-[50vh] w-full overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1600596542815-ffad4b1530a9?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 z-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 z-1"></div>
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 text-center">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white mb-4">
-            Driftx
-          </h1>
+        <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
+          <img
+            src="/logo-monarque.png"
+            alt="Monarque Stays"
+            className="mb-4 h-24 w-auto object-contain sm:h-28"
+          />
 
-          <p className="text-white/90 text-lg sm:text-xl md:text-2xl mt-4 max-w-2xl mx-auto leading-relaxed">
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-white/90 sm:text-xl md:text-2xl">
             Discover exceptional properties tailored to your lifestyle
           </p>
 
-          <div className="mt-8 w-full max-w-2xl mx-auto">
-            <SearchBox />
+          <div className="mx-auto mt-8 w-full max-w-2xl">
+            <SearchBox variant="hero" />
           </div>
         </div>
       </div>
 
-      {/* Featured Properties Section */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="flex items-center justify-between mb-8">
+      {loadError && (
+        <div className="border-b border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-900">
+          {loadError}
+        </div>
+      )}
+
+      <div className="mx-auto max-w-7xl px-4 py-12">
+        <div className="mb-8 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
               Featured Properties
             </h2>
-            <p className="text-gray-500 text-sm mt-1">
+            <p className="mt-1 text-sm text-gray-500">
               Handpicked selections just for you
             </p>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-500">
-              🌟 {featuredProperties.length} Featured
+              {featuredProperties.length} Featured
             </span>
           </div>
         </div>
 
-        <PropertySlider properties={featuredProperties} title="" subtitle="" />
+        {featuredProperties.length > 0 ? (
+          <PropertySlider
+            properties={featuredProperties}
+            title=""
+            subtitle=""
+            onPropertyClick={openById}
+          />
+        ) : (
+          <p className="text-sm text-gray-500">
+            No featured listings yet. Mark properties as featured in the admin
+            panel.
+          </p>
+        )}
       </div>
 
-      {/* Tab Navigation */}
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="mx-auto max-w-7xl px-4">
         <div className="border-b border-gray-200">
-          <div className="flex flex-wrap gap-2 sm:gap-4 overflow-x-auto pb-2">
+          <div className="flex flex-wrap gap-2 overflow-x-auto pb-2 sm:gap-4">
             {categories.map((category) => (
               <button
                 key={category.id}
+                type="button"
                 onClick={() => setActivePropertyTab(category.id)}
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap ${
+                className={`flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150 ${
                   activePropertyTab === category.id
                     ? "bg-[#0f084b] text-white shadow-md"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                 }`}
               >
                 <category.icon size={16} />
@@ -275,41 +185,46 @@ function Homepage() {
         </div>
       </div>
 
-      {/* Properties Grid */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredProperties.map((property) => (
-            <div
+      <div className="mx-auto max-w-7xl px-4 py-8">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {filteredProperties.map((property, idx) => (
+            <button
               key={property.id}
-              className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+              type="button"
+              onClick={() => openPropertyCard(property)}
+              className="group overflow-hidden rounded-xl bg-white text-left shadow-md transition-shadow duration-200 hover:shadow-xl"
             >
               <div className="relative h-48 overflow-hidden">
                 <img
                   src={property.imageUrl}
-                  alt={property.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  alt=""
+                  loading={idx < 6 ? "eager" : "lazy"}
+                  decoding="async"
+                  className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
                 />
                 {property.featured && (
-                  <span className="absolute top-3 left-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold px-2 py-1 rounded-full">
+                  <span className="absolute left-3 top-3 rounded-full bg-[#0f084b] px-2 py-1 text-xs font-bold text-white">
                     Featured
                   </span>
                 )}
-                <div className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm px-2 py-1 rounded-lg">
-                  <span className="text-white text-sm font-bold">
+                <div className="absolute bottom-3 right-3 rounded-lg bg-black/75 px-2 py-1">
+                  <span className="text-sm font-bold text-white">
                     ${property.price.toLocaleString()}
-                    {property.isForRent && <span className="text-xs">/mo</span>}
+                    {property.isForRent && (
+                      <span className="text-xs">/mo</span>
+                    )}
                   </span>
                 </div>
               </div>
               <div className="p-4">
-                <h3 className="font-semibold text-gray-900 mb-1 line-clamp-1">
+                <h3 className="mb-1 line-clamp-1 font-semibold text-gray-900">
                   {property.title}
                 </h3>
-                <div className="flex items-center gap-1 text-gray-500 text-xs mb-2">
+                <div className="mb-2 flex items-center gap-1 text-xs text-gray-500">
                   <MapPin size={12} />
                   <span>{property.location}</span>
                 </div>
-                <div className="flex items-center justify-between text-xs text-gray-600 mb-3">
+                <div className="mb-3 flex items-center justify-between text-xs text-gray-600">
                   <span>{property.bedrooms} beds</span>
                   <span>{property.bathrooms} baths</span>
                   <span>{property.area} sqft</span>
@@ -318,33 +233,31 @@ function Homepage() {
                   <div className="flex items-center gap-1">
                     <Star
                       size={14}
-                      className="text-yellow-400 fill-yellow-400"
+                      className="fill-[#0f084b] text-[#0f084b]"
                     />
                     <span className="text-sm font-medium text-gray-700">
-                      {property.rating}
+                      {property.rating ?? "—"}
                     </span>
                   </div>
-                  <button className="text-gray-400 hover:text-red-500 transition-colors">
+                  <span
+                    className="text-gray-400"
+                    onClick={(e) => e.stopPropagation()}
+                    role="presentation"
+                  >
                     <Heart size={18} />
-                  </button>
+                  </span>
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
 
-        <div className="text-center mt-10">
-          <button className="px-8 py-3 text-black text-sm font-medium ">
-            View All Properties
-          </button>
-        </div>
       </div>
 
-      {/* Video Grid Section */}
-      <div className="bg-gray-100 py-16 mt-12">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+      <div className="mt-12 bg-gray-100 py-16">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="mb-10 text-center">
+            <h2 className="mb-2 text-3xl font-bold text-gray-900">
               Experience the Lifestyle
             </h2>
             <p className="text-gray-600">
@@ -352,43 +265,68 @@ function Homepage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {realVideos.map((video, index) => (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {realVideos.map((video, index) => {
+              const playing = lifestyleClip === index
+              return (
               <div
                 key={video.id}
-                className="group relative rounded-xl overflow-hidden bg-gray-900 aspect-square cursor-pointer"
-                onClick={() => setActiveVideo(index)}
+                className="group relative aspect-square cursor-pointer overflow-hidden rounded-xl bg-gray-900"
+                onClick={() =>
+                  setLifestyleClip((c) => (c === index ? null : index))
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    setLifestyleClip((c) => (c === index ? null : index))
+                }}
+                role="button"
+                tabIndex={0}
               >
-                <video
-                  src={video.url}
-                  poster={video.thumbnail}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  loop
-                  muted
-                  autoPlay={activeVideo === index && isVideoPlaying}
-                  playsInline
+                {playing && (
+                  <video
+                    key={`clip-${video.id}`}
+                    className="absolute inset-0 z-10 h-full w-full object-cover"
+                    src={video.url}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                  />
+                )}
+                <img
+                  src={video.thumbnail}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  className={`h-full w-full object-cover transition-transform duration-200 group-hover:scale-105 ${playing ? "opacity-0" : ""}`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-3">
-                  <p className="text-white text-sm font-semibold">
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute bottom-0 left-0 right-0 p-3">
+                  <p className="text-sm font-semibold text-white">
                     {video.title}
                   </p>
-                  <div className="flex items-center gap-3 text-white/70 text-xs mt-1">
+                  <div className="mt-1 flex items-center gap-3 text-xs text-white/70">
                     <span>{video.views} views</span>
-                    <span>❤️ {video.likes}</span>
+                    <span>{video.likes} likes</span>
                   </div>
                 </div>
-                <div className="absolute top-3 right-3"></div>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                    <Play size={24} className="text-white ml-1" />
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/25">
+                    <Play size={24} className="ml-1 text-white" />
                   </div>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </div>
+
+      <PropertyShowcaseModal
+        property={selected}
+        onClose={() => setSelected(null)}
+      />
 
       <style>{`
         @keyframes scroll {
@@ -407,7 +345,7 @@ function Homepage() {
         }
       `}</style>
     </div>
-  );
+  )
 }
 
-export default Homepage;
+export default Homepage
