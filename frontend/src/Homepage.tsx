@@ -24,11 +24,11 @@ function Homepage() {
   const [selected, setSelected] = useState<Property | null>(null);
   const [lifestyleClip, setLifestyleClip] = useState<number | null>(null);
 
-  // useEffect(() => {
-  //   fetchProperties({ limit: 80 })
-  //     .then(setAllProperties)
-  //     .catch(() => setLoadError("Could not load listings. Start the API and MongoDB."))
-  // }, [])
+  useEffect(() => {
+    fetchProperties({ limit: 80 })
+      .then(setAllProperties)
+      .catch(() => setLoadError("Could not load listings. Start the API and MongoDB."))
+  }, [])
 
   const filteredProperties =
     activePropertyTab === "all"
@@ -134,18 +134,18 @@ function Homepage() {
         </div>
       )}
 
-      <div className="mx-auto max-w-7xl px-4 py-12">
-        <div className="mb-8 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-3 sm:px-4 py-6 sm:py-12">
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
               Featured Properties
             </h2>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-xs sm:text-sm text-gray-500">
               Handpicked selections just for you
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 flex-shrink-0">
+            <span>
               {featuredProperties.length} Featured
             </span>
           </div>
@@ -166,21 +166,21 @@ function Homepage() {
         )}
       </div>
 
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="border-b border-gray-200">
-          <div className="flex flex-wrap gap-2 overflow-x-auto pb-2 sm:gap-4">
+      <div className="mx-auto max-w-7xl px-3 sm:px-4">
+        <div className="border-b border-gray-200 overflow-x-auto">
+          <div className="flex flex-nowrap gap-2 pb-2 sm:gap-4 sm:flex-wrap">
             {categories.map((category) => (
               <button
                 key={category.id}
                 type="button"
                 onClick={() => setActivePropertyTab(category.id)}
-                className={`flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150 ${
+                className={`flex items-center gap-1.5 sm:gap-2 whitespace-nowrap rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors duration-150 flex-shrink-0 min-h-[40px] ${
                   activePropertyTab === category.id
                     ? "bg-[#606c38] text-white shadow-md"
                     : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                 }`}
               >
-                <category.icon size={16} />
+                <category.icon size={14} className="sm:scale-110" />
                 {category.label}
               </button>
             ))}
@@ -188,8 +188,8 @@ function Homepage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto max-w-7xl px-3 py-6 sm:px-4 sm:py-8">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
           {filteredProperties.map((property, idx) => (
             <button
               key={property.id}

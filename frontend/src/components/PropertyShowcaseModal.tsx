@@ -193,7 +193,7 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
           </div>
         )}
 
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-6">
           <p className="text-2xl font-semibold text-[#606c38] sm:text-3xl">
             {formatPrice(property.price)}
             {property.isForRent && (
@@ -201,18 +201,18 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
             )}
           </p>
 
-          <div className="mt-4 flex flex-wrap gap-4 text-sm text-gray-700">
-            <span className="flex items-center gap-2">
-              <Bed size={18} className="text-[#606c38]" />
-              {property.bedrooms} bedrooms
+          <div className="mt-3 sm:mt-4 grid grid-cols-3 gap-2 sm:gap-4 sm:flex sm:flex-wrap text-xs sm:text-sm text-gray-700">
+            <span className="flex items-center gap-1 sm:gap-2">
+              <Bed size={16} className="text-[#606c38] sm:scale-125" />
+              <span className="line-clamp-1">{property.bedrooms} <span className="hidden sm:inline">bedrooms</span><span className="sm:hidden">bed</span></span>
             </span>
-            <span className="flex items-center gap-2">
-              <Bath size={18} className="text-[#606c38]" />
-              {property.bathrooms} bathrooms
+            <span className="flex items-center gap-1 sm:gap-2">
+              <Bath size={16} className="text-[#606c38] sm:scale-125" />
+              <span className="line-clamp-1">{property.bathrooms} <span className="hidden sm:inline">bathrooms</span><span className="sm:hidden">bath</span></span>
             </span>
-            <span className="flex items-center gap-2">
-              <Square size={18} className="text-[#606c38]" />
-              {property.area} sqft
+            <span className="flex items-center gap-1 sm:gap-2">
+              <Square size={16} className="text-[#606c38] sm:scale-125" />
+              <span className="line-clamp-1">{property.area} sqft</span>
             </span>
           </div>
 
@@ -227,90 +227,102 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
             </p>
           )}
 
-          <div className="mt-10 rounded-3xl border border-[#606c38]/20 bg-blue-50 p-5">
-            <div className="mb-4 flex items-center justify-between gap-4">
+          <div className="mt-6 sm:mt-10 rounded-2xl border border-[#606c38]/20 bg-gradient-to-br from-[#606c38]/5 via-white to-[#daa520]/5 p-4 sm:p-8 shadow-lg">
+            <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
-                <p className="text-sm uppercase tracking-[0.2em] text-[#606c38]">
-                  Contact us
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#606c38]">
+                  Get in touch
                 </p>
-                <h3 className="mt-2 text-xl font-semibold text-gray-900">
-                  Request info for {property.title}
+                <h3 className="mt-2 text-xl sm:text-2xl font-bold text-gray-900 leading-snug">
+                  Interested in {property.title}?
                 </h3>
               </div>
-              <span className="rounded-full bg-blue-100 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[#606c38]">
-                Property inquiry
+              <span className="shrink-0 rounded-full bg-[#606c38] px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-bold uppercase tracking-[0.2em] text-white shadow-md whitespace-nowrap">
+                Request
               </span>
             </div>
+            <p className="mb-4 sm:mb-6 text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Fill out the form and our team will contact you shortly.
+            </p>
 
-            <form onSubmit={submitContact} className="space-y-4">
+            <form onSubmit={submitContact} className="space-y-3 sm:space-y-4">
               {status === "success" && (
-                <div className="rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-700">
-                  Your message has been sent. We will respond shortly.
+                <div className="rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 px-4 py-3 text-sm text-emerald-700 flex items-start gap-3">
+                  <div className="mt-0.5 h-5 w-5 flex-shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white">✓</div>
+                  <div>Your message has been sent successfully! We'll be in touch shortly.</div>
                 </div>
               )}
               {error && (
-                <div className="rounded-2xl bg-rose-100 px-4 py-3 text-sm text-rose-700">
-                  {error}
+                <div className="rounded-xl bg-gradient-to-r from-rose-50 to-red-50 border border-rose-200 px-4 py-3 text-sm text-rose-700 flex items-start gap-3">
+                  <div className="mt-0.5 h-5 w-5 flex-shrink-0 rounded-full bg-rose-500 flex items-center justify-center text-white">!</div>
+                  <div>{error}</div>
                 </div>
               )}
-              <div className="grid gap-3 sm:grid-cols-2">
-                <label className="space-y-2 text-sm text-gray-700">
-                  <span>Name</span>
+              <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 sm:gap-4">
+                <label className="space-y-2 text-xs sm:text-sm text-gray-700">
+                  <span className="font-semibold text-gray-900 block">Full Name *</span>
                   <input
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#606c38]"
-                    placeholder="Your name"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3 sm:px-4 py-2 sm:py-2.5 text-sm text-gray-900 placeholder-gray-500 transition focus:border-[#606c38] focus:outline-none focus:ring-2 focus:ring-[#606c38]/20 min-h-[44px] sm:min-h-auto"
+                    placeholder="John Doe"
                   />
                 </label>
-                <label className="space-y-2 text-sm text-gray-700">
-                  <span>Email</span>
+                <label className="space-y-2 text-xs sm:text-sm text-gray-700">
+                  <span className="font-semibold text-gray-900 block">Email Address *</span>
                   <input
                     required
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#606c38]"
-                    placeholder="name@example.com"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3 sm:px-4 py-2 sm:py-2.5 text-sm text-gray-900 placeholder-gray-500 transition focus:border-[#606c38] focus:outline-none focus:ring-2 focus:ring-[#606c38]/20 min-h-[44px] sm:min-h-auto"
+                    placeholder="john@example.com"
                   />
                 </label>
-                <label className="space-y-2 text-sm text-gray-700">
-                  <span>Phone</span>
+                <label className="space-y-2 text-xs sm:text-sm text-gray-700">
+                  <span className="font-semibold text-gray-900 block">Phone Number *</span>
                   <input
                     required
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#606c38]"
-                    placeholder="+1 555 123 4567"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3 sm:px-4 py-2 sm:py-2.5 text-sm text-gray-900 placeholder-gray-500 transition focus:border-[#606c38] focus:outline-none focus:ring-2 focus:ring-[#606c38]/20 min-h-[44px] sm:min-h-auto"
+                    placeholder="+1 (555) 123-4567"
                   />
                 </label>
-                <label className="space-y-2 text-sm text-gray-700">
-                  <span>Property</span>
+                <label className="space-y-2 text-xs sm:text-sm text-gray-700">
+                  <span className="font-semibold text-gray-900 block">Property</span>
                   <input
                     readOnly
                     value={property.title}
-                    className="w-full rounded-2xl border border-gray-300 bg-gray-100 px-3 py-2 text-sm text-gray-600 outline-none"
+                    className="w-full rounded-lg border border-gray-300 bg-gray-50 px-3 sm:px-4 py-2 sm:py-2.5 text-sm text-gray-600 cursor-not-allowed min-h-[44px] sm:min-h-auto"
                   />
                 </label>
               </div>
-              <label className="space-y-2 text-sm text-gray-700">
-                <span>Message</span>
+              <label className="space-y-2 text-xs sm:text-sm text-gray-700">
+                <span className="font-semibold text-gray-900 block">Message (Optional)</span>
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  rows={4}
-                  className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-[#606c38]"
-                  placeholder="Tell us what you need help with"
+                  rows={3}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 sm:px-4 py-2 sm:py-2.5 text-sm text-gray-900 placeholder-gray-500 transition resize-none focus:border-[#606c38] focus:outline-none focus:ring-2 focus:ring-[#606c38]/20 min-h-[100px] sm:min-h-auto"
+                  placeholder="Tell us more about this property..."
                 />
               </label>
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="rounded-2xl bg-[#606c38] px-5 py-3 text-sm font-semibold text-white transition hover:bg-opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-lg bg-gradient-to-r from-[#606c38] to-[#7a8a4a] px-4 sm:px-6 py-3 text-sm font-bold text-white transition hover:shadow-lg hover:from-[#566231] hover:to-[#6d7d3d] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:shadow-md mt-2 min-h-[44px] sm:min-h-auto"
               >
-                {status === "sending" ? "Sending…" : "Send inquiry"}
+                {status === "sending" ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                    Sending…
+                  </span>
+                ) : (
+                  "Send Inquiry"
+                )}
               </button>
             </form>
           </div>

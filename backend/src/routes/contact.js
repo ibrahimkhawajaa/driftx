@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
     Promise.all([
       transporter.sendMail({
         from: process.env.EMAIL_USER || "your-email@gmail.com",
-        to: "ibrahimmkhawajaa@gmail.com",
+        to: process.env.EMAIL_USER || "your-email@gmail.com",
         subject: `New Property Inquiry: ${propertyTitle}`,
         html: adminEmailContent,
       }),
