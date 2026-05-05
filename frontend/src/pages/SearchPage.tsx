@@ -59,11 +59,11 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen ">
       <div className="relative overflow-hidden px-3 py-12 sm:px-4 sm:py-20 md:py-24 lg:py-32">
         {/* Background Image */}
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-15"
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat "
           style={{
             backgroundImage: `url(${Photo})`,
             backgroundPosition: "center",
