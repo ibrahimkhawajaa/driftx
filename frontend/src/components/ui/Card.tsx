@@ -62,7 +62,7 @@ const Card = memo(({
           loading="lazy"
           decoding="async"
           onError={(e) => {
-            e.currentTarget.src = 'https://via.placeholder.com/400x300?text=Property';
+            e.currentTarget.src = 'https://picsum.photos/400/300?random=1';
           }}
         />
         

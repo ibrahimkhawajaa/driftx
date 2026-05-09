@@ -106,7 +106,7 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
             className="h-full w-full object-cover"
             onError={(e) => {
               e.currentTarget.src =
-                "https://via.placeholder.com/1200x600?text=Property"
+                "https://picsum.photos/1200/600?random=1"
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-black/20" />
@@ -346,7 +346,7 @@ function PropertyShowcaseModal({ property, onClose }: Props) {
             className="max-h-full max-w-full object-contain"
             onError={(e) => {
               e.currentTarget.src =
-                "https://via.placeholder.com/1200x800?text=Image+Not+Found"
+                "https://picsum.photos/1200/800?random=2"
             }}
           />
         </div>

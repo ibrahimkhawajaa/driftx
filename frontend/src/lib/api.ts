@@ -1,6 +1,6 @@
 import type { Property } from "../types/property"
 
-const API = "/api"
+const API = "https://driftx-production.up.railway.app/api"
 
 export function buildPropertyQuery(params: Record<string, string | number | boolean | undefined>) {
   const sp = new URLSearchParams()

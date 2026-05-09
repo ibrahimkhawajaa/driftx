@@ -178,7 +178,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ variant = "hero" }) => {
       </div>
 
       {isPopupOpen && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
+        <div className="fixed inset-0 z-[99999] flex items-end justify-center sm:items-center">
           <div
             className="absolute inset-0 bg-black/50 transition-opacity"
             onClick={() => setIsPopupOpen(false)}
